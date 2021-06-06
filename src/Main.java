@@ -39,8 +39,9 @@ public class Main {
         });
 
 
-        //barber starts
-        Barber barber = new Barber();
+        //barbers start
+        Barber simpleBarber = new Barber(false);
+        Barber advancedBarber = new Barber(true);
 
         //customer flow starts
         Thread customersThread = new Thread(()->{
@@ -66,15 +67,17 @@ public class Main {
         });
 
         //threads start
-        barber.start();
+        simpleBarber.start();
+        advancedBarber.start();
         customersThread.start();
         dayNNight.start();
 
         dayNNight.join();
         customersThread.interrupt();
-        barber.interrupt();
+        simpleBarber.interrupt();
+        advancedBarber.interrupt();
 
-
+        //print results
         for (int perDay: barberShop.customersServedPerDay){
             barberShop.customersServed += perDay;
         }
